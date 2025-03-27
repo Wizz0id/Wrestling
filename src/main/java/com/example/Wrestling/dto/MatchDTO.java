@@ -16,7 +16,8 @@ public class MatchDTO {
     private MatchType type;
     private String url;
     private float professionalRating;
-    private long event_id;
+    private long eventId;
+    private long winnerId;
     private List<Long> matchRenewsIDs; // TODO убрать при ненадобности
     private List<Long> wrestlersIDs; // аналогично
 }

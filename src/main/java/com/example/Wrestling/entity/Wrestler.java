@@ -13,6 +13,7 @@ import java.util.List;
 public class Wrestler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private long id;
     @Column
     private String fio;
@@ -21,6 +22,7 @@ public class Wrestler {
     @Column
     private float weight;
     @Column
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     @Column
     private byte[] picture;

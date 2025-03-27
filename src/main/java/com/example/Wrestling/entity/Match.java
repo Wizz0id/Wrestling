@@ -12,15 +12,19 @@ import java.util.List;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private long id;
     @Column
     private String name;
     @Column
+    @Enumerated(EnumType.STRING)
     private MatchType type;
     @Column
     private String url;
     @Column
     private float professionalRating;
+    @Column
+    private long winnerId;
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Event event;
