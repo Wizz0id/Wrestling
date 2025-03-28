@@ -6,13 +6,12 @@ import com.example.Wrestling.repository.PromotionRepository;
 import com.example.Wrestling.repository.TitleRepository;
 import com.example.Wrestling.repository.WrestlerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 @Service
 public class TitleService {
     private final TitleRepository titleRepository;
@@ -60,7 +59,7 @@ public class TitleService {
         title.setStart_date(titleDTO.getStartDate());
         title.setEnd_date(titleDTO.getEndDate());
         title.setPromotion(promotionRepository.findById(titleDTO.getPromotionID()).orElse(null));
-        title.setWrestler(wrestlerRepository.findById(titleDTO.getWrestlerID()).orElse(null));
+        title.setWrestler(wrestlerRepository.findByWrestlerId(titleDTO.getWrestlerID()).orElse(null));
         return title;
     }
 }

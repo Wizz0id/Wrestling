@@ -14,7 +14,7 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-    @Column
+    @Column(unique = true)
     private String name;
     @Column
     private String fioOfCeo;

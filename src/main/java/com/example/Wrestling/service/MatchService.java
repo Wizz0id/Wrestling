@@ -1,25 +1,19 @@
 package com.example.Wrestling.service;
 
 import com.example.Wrestling.dto.MatchDTO;
-import com.example.Wrestling.dto.MatchRenewDTO;
 import com.example.Wrestling.entity.Match;
-import com.example.Wrestling.entity.MatchRenew;
-import com.example.Wrestling.entity.Wrestler;
 import com.example.Wrestling.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 @Service
 public class MatchService {
     private final MatchRepository matchRepository;
     private final EventRepository eventRepository;
-    private final MatchRenewRepository matchRenewRepository;
-    private final WrestlerRepository wrestlerRepository;
 
 
     public List<MatchDTO> getAll(){
@@ -53,8 +47,6 @@ public class MatchService {
         matchDTO.setProfessionalRating(match.getProfessionalRating());
         matchDTO.setEventId(match.getEvent().getId());
         matchDTO.setWinnerId(match.getWinnerId());
-        matchDTO.setMatchRenewsIDs(match.getMatchRenews().stream().map(MatchRenew::getId).toList());
-        matchDTO.setWrestlersIDs(match.getWrestlers().stream().map(Wrestler::getId).toList());
         return matchDTO;
     }
 
@@ -67,8 +59,6 @@ public class MatchService {
         match.setProfessionalRating(matchDTO.getProfessionalRating());
         match.setEvent(eventRepository.findById(matchDTO.getEventId()).orElse(null)); // TODO Оптимизировать бы эххх даааа
         match.setWinnerId(matchDTO.getWinnerId());
-        match.setMatchRenews(matchRenewRepository.findAllById(matchDTO.getMatchRenewsIDs())); // аналогично
-        match.setWrestlers(wrestlerRepository.findAllById(matchDTO.getWrestlersIDs())); // аналогично
         return match;
     }
 }

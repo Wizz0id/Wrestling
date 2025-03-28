@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +14,4 @@ public class EventDTO {
     public String name;
     public LocalDate date;
     private String promotion;
-    private List<Long> eventRenewIDs; // TODO убрать при ненадобности
-    private List<Long> matchIDs; // аналогично
 }

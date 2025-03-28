@@ -1,21 +1,27 @@
 package com.example.Wrestling.service;
 
-import com.example.Wrestling.dto.EventRenewDTO;
 import com.example.Wrestling.dto.MatchRenewDTO;
-import com.example.Wrestling.entity.EventRenew;
-import com.example.Wrestling.entity.Match;
 import com.example.Wrestling.entity.MatchRenew;
 import com.example.Wrestling.repository.MatchRenewRepository;
 import com.example.Wrestling.repository.MatchRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+import java.util.List;
+
+@RequiredArgsConstructor()
 @Service
 public class MatchRenewService {
     private final MatchRenewRepository matchRenewRepository;
     private final MatchRepository matchRepository;
+
+    public List<MatchRenewDTO> getAllMatchRenews(long matchID) {
+        return matchRenewRepository.findAllByMatchId(matchID).stream().map(this::ToDTO).toList();
+    }
+
+    public MatchRenewDTO getMatchRenew(long matchID, long renewID) {
+        return ToDTO(matchRenewRepository.findMatchRenewByMatchIdAndId(matchID, renewID));
+    }
 
     public MatchRenewDTO createRenew(MatchRenewDTO renewDTO) {
         MatchRenew renew = ToRenew(renewDTO);

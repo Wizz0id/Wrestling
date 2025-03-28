@@ -1,18 +1,16 @@
 package com.example.Wrestling.service;
 
-import com.example.Wrestling.dto.EventRenewDTO;
 import com.example.Wrestling.dto.GimmickDTO;
-import com.example.Wrestling.entity.EventRenew;
 import com.example.Wrestling.entity.Gimmick;
 import com.example.Wrestling.repository.GimmickRepository;
 import com.example.Wrestling.repository.WrestlerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor()
 @Service
 public class GimmickService {
     private final GimmickRepository gimmickRepository;
@@ -20,6 +18,13 @@ public class GimmickService {
 
     public List<GimmickDTO> getAllGimmicksForWrestler(Long wrestlerId) {
         return gimmickRepository.findByWrestlerId(wrestlerId).stream().map(this::ToDTO).toList();
+    }
+    public List<GimmickDTO> getAllGimmicksBySearch(Long wrestlerId, String search) {
+        return gimmickRepository.findByName(wrestlerId, search).stream().map(this::ToDTO).toList();
+    }
+
+    public GimmickDTO getGimmick(Long wrestlerId, Long gimmickId) {
+        return ToDTO(Objects.requireNonNull(gimmickRepository.findByWrestlerIdAndId(wrestlerId, gimmickId).orElse(null)));
     }
 
     public GimmickDTO createRenew(GimmickDTO gimmickDTO) {
@@ -41,7 +46,7 @@ public class GimmickService {
         Gimmick gimmick = new Gimmick();
         gimmick.setId(gimmickDTO.getId());
         gimmick.setName(gimmickDTO.getName());
-        gimmick.setWrestler(wrestlerRepository.findById(gimmickDTO.getWrestlerId()).orElse(null)); // TODO попытаться оптимизировать
+        gimmick.setWrestler(wrestlerRepository.findByWrestlerId(gimmickDTO.getWrestlerId()).orElse(null)); // TODO попытаться оптимизировать
         return gimmick;
     }
     private GimmickDTO ToDTO(Gimmick gimmick) {

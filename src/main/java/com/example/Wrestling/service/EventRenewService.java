@@ -5,14 +5,23 @@ import com.example.Wrestling.entity.EventRenew;
 import com.example.Wrestling.repository.EventRenewRepository;
 import com.example.Wrestling.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+import java.util.List;
+
+@RequiredArgsConstructor()
 @Service
 public class EventRenewService {
     private final EventRenewRepository eventRenewRepository;
     private final EventRepository eventRepository;
+
+    public List<EventRenewDTO> getAllEventRenews(long eventId) {
+        return eventRenewRepository.findAllByEventId(eventId).stream().map(this::ToDTO).toList();
+    }
+
+    public EventRenewDTO getEventRenew(long eventId, long eventRenewId) {
+        return ToDTO(eventRenewRepository.findEventRenewByIdAndEventId(eventId, eventRenewId));
+    }
 
     public EventRenewDTO createRenew(EventRenewDTO renewDTO) {
         EventRenew renew = ToRenew(renewDTO);

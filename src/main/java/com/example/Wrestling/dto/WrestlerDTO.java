@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +21,4 @@ public class WrestlerDTO {
     private LocalDate startOfCareer;
     private boolean retired;
     private long promotionID;
-    private List<Long> gimmicksIDs; // TODO убрать при ненадобности
-    private List<Long> titlesIDs; // аналогично
-    private List<Long> MatchesIDs; // аналогично
 }
