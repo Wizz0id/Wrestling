@@ -1,7 +1,6 @@
 package com.example.Wrestling.controller;
 
 import com.example.Wrestling.dto.GimmickDTO;
-import com.example.Wrestling.entity.Gimmick;
 import com.example.Wrestling.service.GimmickService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

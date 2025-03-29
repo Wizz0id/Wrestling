@@ -14,8 +14,9 @@ public class EventController {
     @Autowired
     private EventService eventService;
     @GetMapping
-    public ResponseEntity<List<EventDTO>> getAllEvents() {
-        return ResponseEntity.ok(eventService.getAllEvents());
+    public ResponseEntity<List<EventDTO>> getAllEvents(@RequestParam(required = false) String search) {
+        if (search == null) return ResponseEntity.ok(eventService.getAllEvents());
+        return ResponseEntity.ok(eventService.getAllBySearch(search));
     }
     @GetMapping("/{eventId}")
     public ResponseEntity<EventDTO> getEventById(@PathVariable long eventId) {

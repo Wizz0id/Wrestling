@@ -19,7 +19,6 @@ public class WrestlerController {
         if(search == null) return ResponseEntity.ok(wrestlerService.getAllWrestlers());
         return ResponseEntity.ok(wrestlerService.getAllWrestlersBySearch(search));
     }
-
     @GetMapping("/{wrestlerId}")
     public ResponseEntity<WrestlerDTO> getWrestlerById(@PathVariable Long wrestlerId) {
         return ResponseEntity.ok(wrestlerService.getWrestlerById(wrestlerId));

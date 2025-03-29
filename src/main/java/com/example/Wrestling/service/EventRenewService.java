@@ -24,12 +24,12 @@ public class EventRenewService {
     }
 
     public EventRenewDTO createRenew(EventRenewDTO renewDTO) {
-        EventRenew renew = ToRenew(renewDTO);
+        EventRenew renew = ToEntity(renewDTO);
         return ToDTO(eventRenewRepository.save(renew));
     }
 
     public EventRenewDTO updateRenew(long id, EventRenewDTO renewDTO) {
-        EventRenew event = ToRenew(renewDTO);
+        EventRenew event = ToEntity(renewDTO);
         event.setId(id);
         return ToDTO(eventRenewRepository.save(event));
     }
@@ -38,7 +38,7 @@ public class EventRenewService {
         eventRenewRepository.deleteById(id);
     }
 
-    private EventRenew ToRenew(EventRenewDTO renewDTO){
+    private EventRenew ToEntity(EventRenewDTO renewDTO){
         EventRenew eventRenew = new EventRenew();
         eventRenew.setId(renewDTO.getId());
         eventRenew.setRating(renewDTO.getRating());

@@ -2,7 +2,6 @@ package com.example.Wrestling.service;
 
 import com.example.Wrestling.dto.WrestlerDTO;
 import com.example.Wrestling.entity.Wrestler;
-import com.example.Wrestling.enumurate.Gender;
 import com.example.Wrestling.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,25 +23,16 @@ public class WrestlerService {
     }
 
     public WrestlerDTO getWrestlerById(long id) {
-        return ToDTO(Objects.requireNonNull(wrestlerRepository.findByWrestlerId(id).orElse(null))); // TODO А оно мне надо?
-    }
-    public List<WrestlerDTO> getWrestlerByPromotionId(long promotionId) {
-        return wrestlerRepository.findByPromotionId(promotionId).stream().map(this::ToDTO).toList();
-    }
-    public List<WrestlerDTO> getWrestlerByGender(Gender gender) {
-        return wrestlerRepository.findByGender(gender).stream().map(this::ToDTO).toList();
-    }
-    public List<WrestlerDTO> getWrestlerByMatches(Long id) {
-        return wrestlerRepository.findByMatchesId(id).stream().map(this::ToDTO).toList();
+        return ToDTO(Objects.requireNonNull(wrestlerRepository.findById(id).orElse(null))); // TODO А оно мне надо?
     }
 
     public WrestlerDTO createWrestler(WrestlerDTO wrestlerDTO) {
-        Wrestler wrestler = ToWrestler(wrestlerDTO);
+        Wrestler wrestler = ToEntity(wrestlerDTO);
         return ToDTO(wrestlerRepository.save(wrestler));
     }
 
     public WrestlerDTO updateWrestler(long id, WrestlerDTO wrestlerDTO) {
-        Wrestler wrestler = ToWrestler(wrestlerDTO);
+        Wrestler wrestler = ToEntity(wrestlerDTO);
         wrestler.setId(id);
         return ToDTO(wrestlerRepository.save(wrestler));
     }
@@ -65,7 +55,7 @@ public class WrestlerService {
         wrestlerDTO.setPromotionID(wrestler.getPromotion().getId());
         return wrestlerDTO;
     }
-    private Wrestler ToWrestler(WrestlerDTO wrestlerDTO) {
+    private Wrestler ToEntity(WrestlerDTO wrestlerDTO) {
         Wrestler wrestler = new Wrestler();
         wrestler.setId(wrestlerDTO.getId());
         wrestler.setFio(wrestlerDTO.getFio());

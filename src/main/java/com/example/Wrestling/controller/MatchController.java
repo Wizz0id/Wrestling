@@ -14,8 +14,9 @@ public class MatchController {
     @Autowired
     private MatchService matchService;
     @GetMapping
-    public ResponseEntity<List<MatchDTO>> getMatches() {
-        return ResponseEntity.ok(matchService.getAll());
+    public ResponseEntity<List<MatchDTO>> getMatches(@RequestParam(required = false) String search) {
+        if (search == null) return ResponseEntity.ok(matchService.getAll());
+        return ResponseEntity.ok(matchService.getBySearch(search));
     }
     @GetMapping("/{matchId}")
     public ResponseEntity<MatchDTO> getMatchById(@PathVariable int matchId) {

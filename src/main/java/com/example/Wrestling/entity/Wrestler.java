@@ -32,7 +32,7 @@ public class Wrestler {
     private LocalDate startOfCareer;
     @Column
     private boolean retired;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promo_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Promotion promotion;
     @OneToMany(mappedBy = "wrestler", cascade = CascadeType.ALL, orphanRemoval = true)

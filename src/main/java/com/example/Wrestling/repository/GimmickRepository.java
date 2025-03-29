@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface GimmickRepository extends JpaRepository<Gimmick, Long> {
-    @Query(value = "select * from gimmick where wrestler_id=:wrestlerId and name ilike '%' || :gimmickName || '%'",nativeQuery = true)
+    @Query(value = "select * from gimmick where wrestler_id=:wrestlerId and name ilike '%' || :gimmickName || '%'", nativeQuery = true)
     Optional<Gimmick> findByName(Long wrestlerId, String gimmickName);
     List<Gimmick> findByWrestlerId(Long wrestlerId);
     Optional<Gimmick> findByWrestlerIdAndId(Long wrestlerId, Long id);

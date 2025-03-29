@@ -20,17 +20,20 @@ public class EventService {
     public List<EventDTO> getAllEvents() {
         return eventRepository.findAll().stream().map(this::ToDTO).collect(Collectors.toList());
     }
+    public List<EventDTO> getAllBySearch(String search) {
+        return eventRepository.getBySearch(search).stream().map(this::ToDTO).collect(Collectors.toList());
+    }
     public EventDTO getEventById(long id) {
         return ToDTO(Objects.requireNonNull(eventRepository.findById(id).orElse(null)));    // TODO А оно мне надо?
     }
 
     public EventDTO createEvent(EventDTO eventDTO) {
-        Event event = ToEvent(eventDTO);
+        Event event = ToEntity(eventDTO);
         return ToDTO(eventRepository.save(event));
     }
 
     public EventDTO updateEvent(long id, EventDTO eventDTO) {
-        Event event = ToEvent(eventDTO);
+        Event event = ToEntity(eventDTO);
         event.setId(id);
         return ToDTO(eventRepository.save(event));
     }
@@ -44,15 +47,15 @@ public class EventService {
         eventDTO.setId(event.getId());
         eventDTO.setName(event.getName());
         eventDTO.setDate(event.getDate());
-        eventDTO.setPromotion(event.getPromotion().getName());
+        eventDTO.setPromotionId(event.getPromotion().getId());
         return eventDTO;
     }
-    private Event ToEvent(EventDTO dto) {
+    private Event ToEntity(EventDTO dto) {
         Event event = new Event();
         event.setId(dto.getId());
         event.setName(dto.getName());
         event.setDate(dto.getDate());
-        event.setPromotion(promotionRepository.findByName(dto.getName()).orElse(null)); // TODO Оптимизировать бы эххх даааа
+        event.setPromotion(promotionRepository.findById(dto.getPromotionId()).orElse(null)); // TODO Оптимизировать бы эххх даааа
         return event;
     }
 }

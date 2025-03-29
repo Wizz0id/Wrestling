@@ -19,17 +19,20 @@ public class MatchService {
     public List<MatchDTO> getAll(){
         return matchRepository.findAll().stream().map(this::ToDTO).toList();
     }
+    public List<MatchDTO> getBySearch(String search){
+        return matchRepository.findBySearch(search).stream().map(this::ToDTO).toList();
+    }
     public MatchDTO getMatchById(long id){
         return ToDTO(Objects.requireNonNull(matchRepository.findById(id).orElse(null)));    // TODO А оно мне надо?
     }
 
     public MatchDTO createMatch(MatchDTO matchDTO) {
-        Match match = ToMatch(matchDTO);
+        Match match = ToEntity(matchDTO);
         return ToDTO(matchRepository.save(match));
     }
 
     public MatchDTO updateMatch(long id, MatchDTO renewDTO) {
-        Match match = ToMatch(renewDTO);
+        Match match = ToEntity(renewDTO);
         match.setId(id);
         return ToDTO(matchRepository.save(match));
     }
@@ -50,7 +53,7 @@ public class MatchService {
         return matchDTO;
     }
 
-    private Match ToMatch(MatchDTO matchDTO){
+    private Match ToEntity(MatchDTO matchDTO){
         Match match = new Match();
         match.setId(matchDTO.getId());
         match.setName(matchDTO.getName());

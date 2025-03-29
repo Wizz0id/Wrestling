@@ -18,6 +18,8 @@ public class Promotion {
     private String name;
     @Column
     private String fioOfCeo;
+    @Column
+    private byte[] picture;
 
     @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Wrestler> wrestlers;

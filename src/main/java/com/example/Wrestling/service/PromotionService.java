@@ -24,12 +24,12 @@ public class PromotionService {
         return promotionRepository.findByNameContaining(name).stream().map(this::ToDTO).toList();
     }
     public PromotionDTO createPromotion(PromotionDTO promotionDTO) {
-        Promotion promotion = ToPromotion(promotionDTO);
+        Promotion promotion = ToEntity(promotionDTO);
         return ToDTO(promotionRepository.save(promotion));
     }
 
     public PromotionDTO updatePromotion(long id, PromotionDTO promotionDTO) {
-        Promotion promotion = ToPromotion(promotionDTO);
+        Promotion promotion = ToEntity(promotionDTO);
         promotion.setId(id);
         return ToDTO(promotionRepository.save(promotion));
     }
@@ -43,14 +43,16 @@ public class PromotionService {
         promotionDTO.setId(promotion.getId());
         promotionDTO.setName(promotion.getName());
         promotionDTO.setFioOfCeo(promotion.getFioOfCeo());
+        promotionDTO.setPicture(promotion.getPicture());
         return promotionDTO;
 
     }
-    private Promotion ToPromotion(PromotionDTO promotionDTO) {
+    private Promotion ToEntity(PromotionDTO promotionDTO) {
         Promotion promotion = new Promotion();
         promotion.setId(promotionDTO.getId());
         promotion.setName(promotionDTO.getName());
         promotion.setFioOfCeo(promotionDTO.getFioOfCeo());
+        promotion.setPicture(promotionDTO.getPicture());
         return promotion;
     }
 }

@@ -11,4 +11,5 @@ public class PromotionDTO {
     private long id;
     private String name;
     private String fioOfCeo;
+    private byte[] picture;
 }

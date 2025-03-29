@@ -21,21 +21,19 @@ public class TitleService {
     public List<TitleDTO> getAllTitles() {
         return titleRepository.findAll().stream().map(this::ToDTO).toList();
     }
+
+    public List<TitleDTO> getAllBySearch(String search) {
+        return titleRepository.findBySearch(search).stream().map(this::ToDTO).toList();
+    }
     public TitleDTO getTitleById(long id) {
         return ToDTO(Objects.requireNonNull(titleRepository.findById(id).orElse(null))); // TODO А оно мне надо?
     }
-    public List<TitleDTO> getAllTitlesByPromotionId(long promotionId) {
-        return titleRepository.findByPromotionId(promotionId).stream().map(this::ToDTO).toList();
-    }
-    public List<TitleDTO> getAllTitlesByWrestlerId(long wrestlerId) {
-        return titleRepository.findByWrestlerId(wrestlerId).stream().map(this::ToDTO).toList();
-    }
     public TitleDTO saveTitle(TitleDTO titleDTO) {
-        Title title = ToTitle(titleDTO);
+        Title title = ToEntity(titleDTO);
         return ToDTO(titleRepository.save(title));
     }
     public TitleDTO updateTitle(long id,TitleDTO titleDTO) {
-        Title title = ToTitle(titleDTO);
+        Title title = ToEntity(titleDTO);
         title.setId(id);
         return ToDTO(titleRepository.save(title));
     }
@@ -52,14 +50,14 @@ public class TitleService {
         titleDTO.setWrestlerID(title.getWrestler().getId());
         return titleDTO;
     }
-    private Title ToTitle(TitleDTO titleDTO) {
+    private Title ToEntity(TitleDTO titleDTO) {
         Title title = new Title();
         title.setId(titleDTO.getId());
         title.setName(titleDTO.getName());
         title.setStart_date(titleDTO.getStartDate());
         title.setEnd_date(titleDTO.getEndDate());
         title.setPromotion(promotionRepository.findById(titleDTO.getPromotionID()).orElse(null));
-        title.setWrestler(wrestlerRepository.findByWrestlerId(titleDTO.getWrestlerID()).orElse(null));
+        title.setWrestler(wrestlerRepository.findById(titleDTO.getWrestlerID()).orElse(null));
         return title;
     }
 }

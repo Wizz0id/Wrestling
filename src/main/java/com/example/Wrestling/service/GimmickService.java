@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
 @Service
 public class GimmickService {
     private final GimmickRepository gimmickRepository;
@@ -28,12 +28,12 @@ public class GimmickService {
     }
 
     public GimmickDTO createRenew(GimmickDTO gimmickDTO) {
-        Gimmick gimmick = ToGimmick(gimmickDTO);
+        Gimmick gimmick = ToEntity(gimmickDTO);
         return ToDTO(gimmickRepository.save(gimmick));
     }
 
     public GimmickDTO updateRenew(long id, GimmickDTO gimmickDTO) {
-        Gimmick gimmick = ToGimmick(gimmickDTO);
+        Gimmick gimmick = ToEntity(gimmickDTO);
         gimmick.setId(id);
         return ToDTO(gimmickRepository.save(gimmick));
     }
@@ -42,11 +42,11 @@ public class GimmickService {
         gimmickRepository.deleteById(id);
     }
 
-    private Gimmick ToGimmick(GimmickDTO gimmickDTO) {
+    private Gimmick ToEntity(GimmickDTO gimmickDTO) {
         Gimmick gimmick = new Gimmick();
         gimmick.setId(gimmickDTO.getId());
         gimmick.setName(gimmickDTO.getName());
-        gimmick.setWrestler(wrestlerRepository.findByWrestlerId(gimmickDTO.getWrestlerId()).orElse(null)); // TODO попытаться оптимизировать
+        gimmick.setWrestler(wrestlerRepository.findById(gimmickDTO.getWrestlerId()).orElse(null)); // TODO попытаться оптимизировать
         return gimmick;
     }
     private GimmickDTO ToDTO(Gimmick gimmick) {

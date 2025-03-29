@@ -13,9 +13,11 @@ import java.util.List;
 public class TitleController {
     @Autowired
     private TitleService titleService;
+
     @GetMapping
-    public ResponseEntity<List<TitleDTO>> getAllTitles() {
-        return ResponseEntity.ok(titleService.getAllTitles());
+    public ResponseEntity<List<TitleDTO>> getAllTitles(@RequestParam(required = false) String search) {
+        if(search == null)  return ResponseEntity.ok(titleService.getAllTitles());
+        return ResponseEntity.ok(titleService.getAllBySearch(search));
     }
     @GetMapping("/{titleId}")
     public ResponseEntity<TitleDTO> getTitleById(@PathVariable int titleId) {

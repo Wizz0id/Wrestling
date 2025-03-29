@@ -14,7 +14,7 @@ public class PromotionController {
     @Autowired
     private PromotionService promotionService;
     @GetMapping
-    public ResponseEntity<List<PromotionDTO>> getPromotions(@RequestParam(required = false) String search) {
+    public ResponseEntity<List<PromotionDTO>> getAllPromotions(@RequestParam(required = false) String search) {
         if(search == null) return ResponseEntity.ok(promotionService.getAllPromotions());
         return ResponseEntity.ok(promotionService.getPromotionByName(search));
     }
