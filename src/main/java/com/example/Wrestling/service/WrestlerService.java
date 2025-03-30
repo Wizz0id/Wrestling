@@ -6,6 +6,7 @@ import com.example.Wrestling.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,12 +48,13 @@ public class WrestlerService {
         wrestlerDTO.setFio(wrestler.getFio());
         wrestlerDTO.setHeight(wrestler.getHeight());
         wrestlerDTO.setWeight(wrestler.getWeight());
-        wrestlerDTO.setPicture(wrestler.getPicture());
+        wrestlerDTO.setPicture(Base64.getEncoder().encodeToString(wrestler.getPicture()));
         wrestlerDTO.setGender(wrestler.getGender());
         wrestlerDTO.setTrainer(wrestler.getTrainer());
         wrestlerDTO.setStartOfCareer(wrestler.getStartOfCareer());
         wrestlerDTO.setRetired(wrestler.isRetired());
-        wrestlerDTO.setPromotionID(wrestler.getPromotion().getId());
+        wrestlerDTO.setPromotionPicture(Base64.getEncoder().encodeToString(wrestler.getPromotion().getPicture()));
+        wrestlerDTO.setPromotionName(wrestler.getPromotion().getName());
         return wrestlerDTO;
     }
     private Wrestler ToEntity(WrestlerDTO wrestlerDTO) {
@@ -61,12 +63,12 @@ public class WrestlerService {
         wrestler.setFio(wrestlerDTO.getFio());
         wrestler.setHeight(wrestlerDTO.getHeight());
         wrestler.setWeight(wrestlerDTO.getWeight());
-        wrestler.setPicture(wrestlerDTO.getPicture());
+        wrestler.setPicture(Base64.getDecoder().decode(wrestlerDTO.getPicture()));
         wrestler.setGender(wrestlerDTO.getGender());
         wrestler.setTrainer(wrestlerDTO.getTrainer());
         wrestler.setStartOfCareer(wrestlerDTO.getStartOfCareer());
         wrestler.setRetired(wrestlerDTO.isRetired());
-        wrestler.setPromotion(promotionRepository.findById(wrestlerDTO.getPromotionID()).orElse(null));
+        wrestler.setPromotion(promotionRepository.findByName(wrestlerDTO.getPromotionName()).orElse(null));
         return wrestler;
     }
 }

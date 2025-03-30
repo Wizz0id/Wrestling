@@ -15,10 +15,11 @@ public class WrestlerDTO {
     private String fio;
     private float height;
     private float weight;
-    private byte[] picture;
+    private String picture;
     private Gender gender;
     private String trainer;
     private LocalDate startOfCareer;
     private boolean retired;
-    private long promotionID;
+    private String promotionPicture;
+    private String promotionName;
 }

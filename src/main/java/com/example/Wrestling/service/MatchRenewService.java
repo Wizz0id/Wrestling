@@ -20,7 +20,7 @@ public class MatchRenewService {
     }
 
     public MatchRenewDTO getMatchRenew(long matchID, long renewID) {
-        return ToDTO(matchRenewRepository.findMatchRenewByMatchIdAndId(matchID, renewID));
+        return ToDTO(matchRenewRepository.findMatchRenewByMatchIdAndId(matchID, renewID).orElse(new MatchRenew()));
     }
 
     public MatchRenewDTO createRenew(MatchRenewDTO renewDTO) {

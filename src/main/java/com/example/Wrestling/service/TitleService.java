@@ -8,6 +8,7 @@ import com.example.Wrestling.repository.WrestlerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,6 +47,7 @@ public class TitleService {
         titleDTO.setName(title.getName());
         titleDTO.setStartDate(title.getStart_date());
         titleDTO.setEndDate(title.getEnd_date());
+        titleDTO.setPicture(Base64.getEncoder().encodeToString(title.getPicture()));
         titleDTO.setPromotionID(title.getPromotion().getId());
         titleDTO.setWrestlerID(title.getWrestler().getId());
         return titleDTO;
@@ -56,6 +58,7 @@ public class TitleService {
         title.setName(titleDTO.getName());
         title.setStart_date(titleDTO.getStartDate());
         title.setEnd_date(titleDTO.getEndDate());
+        title.setPicture(Base64.getDecoder().decode(titleDTO.getPicture()));
         title.setPromotion(promotionRepository.findById(titleDTO.getPromotionID()).orElse(null));
         title.setWrestler(wrestlerRepository.findById(titleDTO.getWrestlerID()).orElse(null));
         return title;

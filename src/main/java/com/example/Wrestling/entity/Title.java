@@ -19,6 +19,8 @@ public class Title {
     private LocalDate start_date;
     @Column
     private LocalDate end_date;
+    @Column
+    private byte[] picture;
     @ManyToOne
     @JoinColumn(name = "promo_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Promotion promotion;

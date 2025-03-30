@@ -14,6 +14,7 @@ public class TitleDTO {
     private String name;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String picture;
     private long promotionID;
     private long wrestlerID; // TODO Изменить DTO при наличии истории титула
 }

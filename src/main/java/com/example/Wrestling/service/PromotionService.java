@@ -6,6 +6,7 @@ import com.example.Wrestling.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,7 +44,7 @@ public class PromotionService {
         promotionDTO.setId(promotion.getId());
         promotionDTO.setName(promotion.getName());
         promotionDTO.setFioOfCeo(promotion.getFioOfCeo());
-        promotionDTO.setPicture(promotion.getPicture());
+        promotionDTO.setPicture(Base64.getEncoder().encodeToString(promotion.getPicture()));
         return promotionDTO;
 
     }
@@ -52,7 +53,7 @@ public class PromotionService {
         promotion.setId(promotionDTO.getId());
         promotion.setName(promotionDTO.getName());
         promotion.setFioOfCeo(promotionDTO.getFioOfCeo());
-        promotion.setPicture(promotionDTO.getPicture());
+        promotion.setPicture(Base64.getDecoder().decode(promotionDTO.getPicture()));
         return promotion;
     }
 }
