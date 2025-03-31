@@ -2,6 +2,7 @@ package com.example.Wrestling.service;
 
 import com.example.Wrestling.dto.GimmickDTO;
 import com.example.Wrestling.entity.Gimmick;
+import com.example.Wrestling.mapper.GimmickMapper;
 import com.example.Wrestling.repository.GimmickRepository;
 import com.example.Wrestling.repository.WrestlerRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,43 +18,28 @@ public class GimmickService {
     private final WrestlerRepository wrestlerRepository;
 
     public List<GimmickDTO> getAllGimmicksForWrestler(Long wrestlerId) {
-        return gimmickRepository.findByWrestlerId(wrestlerId).stream().map(this::ToDTO).toList();
+        return gimmickRepository.findByWrestlerId(wrestlerId).stream().map(GimmickMapper::ToDTO).toList();
     }
     public List<GimmickDTO> getAllGimmicksBySearch(Long wrestlerId, String search) {
-        return gimmickRepository.findByName(wrestlerId, search).stream().map(this::ToDTO).toList();
+        return gimmickRepository.findByName(wrestlerId, search).stream().map(GimmickMapper::ToDTO).toList();
     }
 
     public GimmickDTO getGimmick(Long wrestlerId, Long gimmickId) {
-        return ToDTO(Objects.requireNonNull(gimmickRepository.findByWrestlerIdAndId(wrestlerId, gimmickId).orElse(null)));
+        return GimmickMapper.ToDTO(Objects.requireNonNull(gimmickRepository.findByWrestlerIdAndId(wrestlerId, gimmickId).orElse(null)));
     }
 
     public GimmickDTO createRenew(GimmickDTO gimmickDTO) {
-        Gimmick gimmick = ToEntity(gimmickDTO);
-        return ToDTO(gimmickRepository.save(gimmick));
+        Gimmick gimmick = GimmickMapper.ToEntity(gimmickDTO, wrestlerRepository.findById(gimmickDTO.getWrestlerId()).orElse(null));
+        return GimmickMapper.ToDTO(gimmickRepository.save(gimmick));
     }
 
     public GimmickDTO updateRenew(long id, GimmickDTO gimmickDTO) {
-        Gimmick gimmick = ToEntity(gimmickDTO);
+        Gimmick gimmick = GimmickMapper.ToEntity(gimmickDTO, wrestlerRepository.findById(gimmickDTO.getWrestlerId()).orElse(null));
         gimmick.setId(id);
-        return ToDTO(gimmickRepository.save(gimmick));
+        return GimmickMapper.ToDTO(gimmickRepository.save(gimmick));
     }
 
     public void deleteRenew(long id) {
         gimmickRepository.deleteById(id);
-    }
-
-    private Gimmick ToEntity(GimmickDTO gimmickDTO) {
-        Gimmick gimmick = new Gimmick();
-        gimmick.setId(gimmickDTO.getId());
-        gimmick.setName(gimmickDTO.getName());
-        gimmick.setWrestler(wrestlerRepository.findById(gimmickDTO.getWrestlerId()).orElse(null)); // TODO попытаться оптимизировать
-        return gimmick;
-    }
-    private GimmickDTO ToDTO(Gimmick gimmick) {
-        GimmickDTO gimmickDTO = new GimmickDTO();
-        gimmickDTO.setId(gimmick.getId());
-        gimmickDTO.setName(gimmick.getName());
-        gimmickDTO.setWrestlerId(gimmick.getWrestler().getId());
-        return gimmickDTO;
     }
 }

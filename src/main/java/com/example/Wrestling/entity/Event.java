@@ -2,9 +2,9 @@ package com.example.Wrestling.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,8 +24,10 @@ public class Event {
     private Promotion promotion;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     List<EventRenew> eventRenews;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "event")
+    @ToString.Exclude
     List<Match> matches;
 }

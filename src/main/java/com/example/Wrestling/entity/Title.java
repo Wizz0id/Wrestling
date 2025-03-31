@@ -2,6 +2,7 @@ package com.example.Wrestling.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
@@ -26,5 +27,6 @@ public class Title {
     private Promotion promotion;
     @ManyToOne
     @JoinColumn(name = "wrestler_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+    @ToString.Exclude
     private Wrestler wrestler; // TODO скорее всего надо изменить на ManyToMany если я хочу хранить историю передачи титула
 }

@@ -2,6 +2,7 @@ package com.example.Wrestling.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -21,12 +22,15 @@ public class Promotion {
     @Column
     private byte[] picture;
 
-    @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "promotion")
+    @ToString.Exclude
     private List<Wrestler> wrestlers;
 
-    @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "promotion")
+    @ToString.Exclude
     private List<Event> events;
 
-    @OneToMany(mappedBy = "promotion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "promotion")
+    @ToString.Exclude
     private List<Title> titles;
 }

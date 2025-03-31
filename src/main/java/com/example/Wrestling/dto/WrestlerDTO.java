@@ -20,6 +20,5 @@ public class WrestlerDTO {
     private String trainer;
     private LocalDate startOfCareer;
     private boolean retired;
-    private String promotionPicture;
-    private String promotionName;
+    private long promotionId;
 }

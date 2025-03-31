@@ -3,6 +3,7 @@ package com.example.Wrestling.entity;
 import com.example.Wrestling.enumurate.MatchType;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -30,8 +31,10 @@ public class Match {
     private Event event;
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     List<MatchRenew> matchRenews;
 
     @ManyToMany(mappedBy = "matches")
+    @ToString.Exclude
     private List<Wrestler> wrestlers;
 }

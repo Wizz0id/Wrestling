@@ -3,6 +3,7 @@ package com.example.Wrestling.entity;
 import com.example.Wrestling.enumurate.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,17 +36,20 @@ public class Wrestler {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promo_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Promotion promotion;
-    @OneToMany(mappedBy = "wrestler", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "wrestler")
+    @ToString.Exclude
     private List<Gimmick> gimmicks;
 
-    @OneToMany(mappedBy = "wrestler", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "wrestler")
+    @ToString.Exclude
     private List<Title> titles;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "participants",
             joinColumns = @JoinColumn(name = "wrestler_id"),
             inverseJoinColumns = @JoinColumn(name = "match_id")
     )
+    @ToString.Exclude
     private List<Match> matches;
 }

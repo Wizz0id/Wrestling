@@ -1,6 +1,7 @@
 package com.example.Wrestling.controller;
 
 import com.example.Wrestling.dto.WrestlerDTO;
+import com.example.Wrestling.dto.WrestlerResponseDTO;
 import com.example.Wrestling.service.WrestlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class WrestlerController {
         return ResponseEntity.ok(wrestlerService.getAllWrestlersBySearch(search));
     }
     @GetMapping("/{wrestlerId}")
-    public ResponseEntity<WrestlerDTO> getWrestlerById(@PathVariable Long wrestlerId) {
+    public ResponseEntity<WrestlerResponseDTO> getWrestlerById(@PathVariable Long wrestlerId) {
         return ResponseEntity.ok(wrestlerService.getWrestlerById(wrestlerId));
     }
     @PostMapping
