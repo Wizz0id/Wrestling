@@ -1,7 +1,7 @@
 package com.example.Wrestling.entity;
 
 import jakarta.persistence.*;
-        import lombok.Data;
+import lombok.Data;
 
 @Data
 @Entity
