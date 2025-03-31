@@ -19,9 +19,9 @@ public class Wrestler {
     @Column
     private String fio;
     @Column
-    private float height;
+    private int height;
     @Column
-    private float weight;
+    private int weight;
     @Column
     @Enumerated(EnumType.STRING)
     private Gender gender;

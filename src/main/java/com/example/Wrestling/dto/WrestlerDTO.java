@@ -13,8 +13,8 @@ import java.time.LocalDate;
 public class WrestlerDTO {
     private long id;
     private String fio;
-    private float height;
-    private float weight;
+    private int height;
+    private int weight;
     private String picture;
     private Gender gender;
     private String trainer;

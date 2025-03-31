@@ -1,7 +1,7 @@
 package com.example.Wrestling.entity;
 
 import jakarta.persistence.*;
-        import lombok.Data;
+import lombok.Data;
 
 @Data
 @Entity
@@ -12,7 +12,7 @@ public class EventRenew {
     @Column(name = "id", nullable = false)
     private long id;
     @Column
-    private float rating;
+    private double rating;
     @Column
     private String renew;
     @ManyToOne

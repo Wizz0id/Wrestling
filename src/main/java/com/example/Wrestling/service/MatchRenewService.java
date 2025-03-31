@@ -24,13 +24,13 @@ public class MatchRenewService {
         return MatchRenewMapper.ToDTO(matchRenewRepository.findMatchRenewByMatchIdAndId(matchID, renewID).orElse(new MatchRenew()));
     }
 
-    public MatchRenewDTO createRenew(MatchRenewDTO renewDTO) {
-        MatchRenew renew = MatchRenewMapper.ToRenew(renewDTO, matchRepository.findById(renewDTO.getMatchId()).orElse(null));
+    public MatchRenewDTO createRenew(long matchId, MatchRenewDTO renewDTO) {
+        MatchRenew renew = MatchRenewMapper.ToRenew(renewDTO, matchRepository.findById(matchId).orElse(null));
         return MatchRenewMapper.ToDTO(matchRenewRepository.save(renew));
     }
 
-    public MatchRenewDTO updateRenew(long id, MatchRenewDTO renewDTO) {
-        MatchRenew event = MatchRenewMapper.ToRenew(renewDTO, matchRepository.findById(renewDTO.getMatchId()).orElse(null));
+    public MatchRenewDTO updateRenew(long matchId,long id, MatchRenewDTO renewDTO) {
+        MatchRenew event = MatchRenewMapper.ToRenew(renewDTO, matchRepository.findById(matchId).orElse(null));
         event.setId(id);
         return MatchRenewMapper.ToDTO(matchRenewRepository.save(event));
     }

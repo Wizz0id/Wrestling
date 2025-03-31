@@ -1,6 +1,6 @@
 package com.example.Wrestling.service;
 
-import com.example.Wrestling.dto.MatchDTO;
+import com.example.Wrestling.dto.*;
 import com.example.Wrestling.entity.Match;
 import com.example.Wrestling.mapper.MatchMapper;
 import com.example.Wrestling.repository.*;
@@ -25,7 +25,7 @@ public class MatchService {
         return matchRepository.findBySearch(search).stream().map(MatchMapper::ToDTO).toList();
     }
     public MatchDTO getMatchById(long id){
-        return MatchMapper.ToDTO(Objects.requireNonNull(matchRepository.findById(id).orElse(null)));    // TODO А оно мне надо?
+        return MatchMapper.ToDTO(Objects.requireNonNull(matchRepository.getMatchById(id).orElse(null)));
     }
 
     public MatchDTO createMatch(MatchDTO matchDTO) {
@@ -40,7 +40,8 @@ public class MatchService {
     }
 
     public void deleteMatch(long id) {
-        matchRepository.deleteById(id);
+        matchRepository.deleteParticipantsById(id);
+        matchRepository.deleteMatchById(id);
     }
 
 

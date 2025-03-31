@@ -20,7 +20,8 @@ public class MatchController {
     }
     @GetMapping("/{matchId}")
     public ResponseEntity<MatchDTO> getMatchById(@PathVariable int matchId) {
-        return ResponseEntity.ok(matchService.getMatchById(matchId));
+        MatchDTO matchDTO = matchService.getMatchById(matchId);
+        return ResponseEntity.ok(matchDTO);
     }
     @PostMapping
     public ResponseEntity<MatchDTO> createMatch(@RequestBody MatchDTO matchDTO) {

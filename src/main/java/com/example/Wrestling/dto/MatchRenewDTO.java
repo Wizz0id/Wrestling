@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MatchRenewDTO {
     private long id;
-    private float rating;
+    private double rating;
     private String renew;
-    private long matchId;
 }

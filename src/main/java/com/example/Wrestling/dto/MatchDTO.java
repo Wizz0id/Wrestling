@@ -15,7 +15,7 @@ public class MatchDTO {
     private String name;
     private MatchType type;
     private String url;
-    private float professionalRating;
+    private double professionalRating;
     private long eventId;
     private long winnerId;
     private List<Long> wrestlersId;

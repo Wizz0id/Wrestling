@@ -20,7 +20,6 @@ public class MatchRenewMapper {
         matchRenewDTO.setId(renew.getId());
         matchRenewDTO.setRating(renew.getRating());
         matchRenewDTO.setRenew(renew.getRenew());
-        matchRenewDTO.setMatchId(renew.getMatch().getId());
         return matchRenewDTO;
     }
 }

@@ -12,7 +12,7 @@ public class MatchRenew {
     @Column(name = "id", nullable = false)
     private long id;
     @Column
-    private float rating;
+    private double rating;
     @Column
     private String renew;
     @ManyToOne

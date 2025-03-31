@@ -23,7 +23,7 @@ public class Match {
     @Column
     private String url;
     @Column
-    private float professionalRating;
+    private double professionalRating;
     @Column
     private long winnerId;
     @ManyToOne

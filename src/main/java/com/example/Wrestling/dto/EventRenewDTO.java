@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EventRenewDTO {
     private long id;
-    private float rating;
+    private double rating;
     private String renew;
     private long eventId;
 }

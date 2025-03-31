@@ -23,13 +23,11 @@ public class MatchRenewController {
     }
     @PostMapping
     public ResponseEntity<MatchRenewDTO> createMatchRenew(@PathVariable Long matchId, @RequestBody MatchRenewDTO matchRenewDTO) {
-        matchRenewDTO.setMatchId(matchId);
-        return ResponseEntity.ok(matchRenewService.createRenew(matchRenewDTO));
+        return ResponseEntity.ok(matchRenewService.createRenew(matchId, matchRenewDTO));
     }
     @PutMapping("/{renewId}")
     public ResponseEntity<MatchRenewDTO> updateMatchRenew(@PathVariable Long matchId, @PathVariable Long renewId, @RequestBody MatchRenewDTO renewDTO) {
-        renewDTO.setMatchId(matchId);
-        return ResponseEntity.ok(matchRenewService.updateRenew(renewId, renewDTO));
+        return ResponseEntity.ok(matchRenewService.updateRenew(matchId, renewId, renewDTO));
     }
     @DeleteMapping("/{renewId}")
     public ResponseEntity<String> deleteMatchRenew(@PathVariable Long matchId, @PathVariable Long renewId) {
