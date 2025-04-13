@@ -40,7 +40,12 @@ public class Wrestler {
     @ToString.Exclude
     private List<Gimmick> gimmicks;
 
-    @OneToMany(mappedBy = "wrestler")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "champions",
+            joinColumns = @JoinColumn(name = "wrestler_id"),
+            inverseJoinColumns = @JoinColumn(name = "title_id")
+    )
     @ToString.Exclude
     private List<Title> titles;
 

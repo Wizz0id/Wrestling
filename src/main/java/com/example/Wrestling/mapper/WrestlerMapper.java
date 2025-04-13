@@ -3,6 +3,7 @@ package com.example.Wrestling.mapper;
 import com.example.Wrestling.dto.WrestlerDTO;
 import com.example.Wrestling.entity.Promotion;
 import com.example.Wrestling.entity.Wrestler;
+import com.example.Wrestling.enumurate.Gender;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Base64;
@@ -16,7 +17,7 @@ public class WrestlerMapper {
         wrestlerDTO.setHeight(wrestler.getHeight());
         wrestlerDTO.setWeight(wrestler.getWeight());
         wrestlerDTO.setPicture(Base64.getEncoder().encodeToString(wrestler.getPicture()));
-        wrestlerDTO.setGender(wrestler.getGender());
+        wrestlerDTO.setGender(wrestler.getGender().getDescription());
         wrestlerDTO.setTrainer(wrestler.getTrainer());
         wrestlerDTO.setStartOfCareer(wrestler.getStartOfCareer());
         wrestlerDTO.setRetired(wrestler.isRetired());
@@ -30,7 +31,7 @@ public class WrestlerMapper {
         wrestler.setHeight(wrestlerDTO.getHeight());
         wrestler.setWeight(wrestlerDTO.getWeight());
         wrestler.setPicture(Base64.getDecoder().decode(wrestlerDTO.getPicture()));
-        wrestler.setGender(wrestlerDTO.getGender());
+        wrestler.setGender(Gender.valueOf(wrestlerDTO.getGender()));
         wrestler.setTrainer(wrestlerDTO.getTrainer());
         wrestler.setStartOfCareer(wrestlerDTO.getStartOfCareer());
         wrestler.setRetired(wrestlerDTO.isRetired());

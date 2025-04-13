@@ -22,12 +22,14 @@ public class WrestlerService {
     public List<WrestlerDTO> getAllWrestlers() {
         return wrestlerRepository.findAll().stream().map(WrestlerMapper::ToDTO).toList();
     }
+
     public List<WrestlerDTO> getAllWrestlersBySearch(String search) {
         return wrestlerRepository.findBySearch(search).stream().map(WrestlerMapper::ToDTO).toList();
     }
 
     public WrestlerResponseDTO getWrestlerById(long id) {
-        WrestlerDTO wrestlerDTO = WrestlerMapper.ToDTO(Objects.requireNonNull(wrestlerRepository.findById(id).orElse(null))); // TODO А оно мне надо?
+        WrestlerDTO wrestlerDTO = wrestlerRepository.getById(id).orElse(null);
+        if (wrestlerDTO == null) return null;
         PromotionDTO promotionDTO = PromotionMapper.ToDTO(Objects.requireNonNull(promotionRepository.findById(wrestlerDTO.getPromotionId()).orElse(null)));
         return new WrestlerResponseDTO(promotionDTO, wrestlerDTO);
     }

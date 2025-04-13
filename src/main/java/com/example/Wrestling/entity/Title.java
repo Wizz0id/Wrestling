@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -25,8 +26,7 @@ public class Title {
     @ManyToOne
     @JoinColumn(name = "promo_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Promotion promotion;
-    @ManyToOne
-    @JoinColumn(name = "wrestler_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
+    @ManyToMany(mappedBy = "titles")
     @ToString.Exclude
-    private Wrestler wrestler; // TODO скорее всего надо изменить на ManyToMany если я хочу хранить историю передачи титула
+    private List<Wrestler> wrestler;
 }

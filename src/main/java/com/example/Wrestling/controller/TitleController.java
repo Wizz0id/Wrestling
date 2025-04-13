@@ -16,7 +16,11 @@ public class TitleController {
 
     @GetMapping
     public ResponseEntity<List<TitleDTO>> getAllTitles(@RequestParam(required = false) String search) {
-        if(search == null)  return ResponseEntity.ok(titleService.getAllTitles());
+        if(search == null)
+        {
+            List<TitleDTO> titles = titleService.getAllTitles();
+            return ResponseEntity.ok(titles);
+        }
         return ResponseEntity.ok(titleService.getAllBySearch(search));
     }
     @GetMapping("/{titleId}")
