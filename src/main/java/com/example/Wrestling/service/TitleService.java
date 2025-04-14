@@ -5,6 +5,7 @@ import com.example.Wrestling.entity.Title;
 import com.example.Wrestling.mapper.TitleMapper;
 import com.example.Wrestling.repository.PromotionRepository;
 import com.example.Wrestling.repository.TitleRepository;
+import com.example.Wrestling.repository.WrestlerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class TitleService {
     private final TitleRepository titleRepository;
     private final PromotionRepository promotionRepository;
+    private final WrestlerRepository wrestlerRepository;
 
     public List<TitleDTO> getAllTitles() {
         return titleRepository.findAll().stream().map(TitleMapper::ToDTO).toList();
@@ -24,15 +26,20 @@ public class TitleService {
     public List<TitleDTO> getAllBySearch(String search) {
         return titleRepository.findBySearch(search).stream().map(TitleMapper::ToDTO).toList();
     }
+    public List<TitleDTO> getAllByWrestler(long wrestlerId) {
+        return titleRepository.getAllByWrestler(wrestlerId).stream().map(TitleMapper::ToDTO).toList();
+    }
     public TitleDTO getTitleById(long id) {
         return TitleMapper.ToDTO(Objects.requireNonNull(titleRepository.findById(id).orElse(null))); // TODO А оно мне надо?
     }
     public TitleDTO saveTitle(TitleDTO titleDTO) {
-        Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findByName(titleDTO.getPromotionName()).orElse(null));
+        Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findByName(titleDTO.getPromotionName()).orElse(null),
+                wrestlerRepository.findAllById(titleDTO.getWrestlersId()));
         return TitleMapper.ToDTO(titleRepository.save(title));
     }
-    public TitleDTO updateTitle(long id,TitleDTO titleDTO) {
-        Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findByName(titleDTO.getPromotionName()).orElse(null));
+    public TitleDTO updateTitle(long id, TitleDTO titleDTO) {
+        Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findByName(titleDTO.getPromotionName()).orElse(null),
+                wrestlerRepository.findAllById(titleDTO.getWrestlersId()));
         title.setId(id);
         return TitleMapper.ToDTO(titleRepository.save(title));
     }

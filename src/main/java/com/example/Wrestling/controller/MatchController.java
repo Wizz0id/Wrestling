@@ -23,6 +23,14 @@ public class MatchController {
         MatchDTO matchDTO = matchService.getMatchById(matchId);
         return ResponseEntity.ok(matchDTO);
     }
+    @GetMapping(value = "/matches", params = "wrestler")
+    public ResponseEntity<List<MatchDTO>> getMatchesByWrestler(@RequestParam(name = "wrestler") long wrestlerId){
+        return ResponseEntity.ok(matchService.getMatchesByWrestlerId(wrestlerId));
+    }
+    @GetMapping(value = "/matches", params = "event")
+    public ResponseEntity<List<MatchDTO>> getMatchesByEvent(@RequestParam(name = "event") long eventId){
+        return ResponseEntity.ok(matchService.getMatchesByEventId(eventId));
+    }
     @PostMapping
     public ResponseEntity<MatchDTO> createMatch(@RequestBody MatchDTO matchDTO) {
         return ResponseEntity.ok(matchService.createMatch(matchDTO));

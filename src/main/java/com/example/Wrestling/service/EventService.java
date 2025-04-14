@@ -29,12 +29,12 @@ public class EventService {
     }
 
     public EventDTO createEvent(EventDTO eventDTO) {
-        Event event = EventMapper.ToEntity(eventDTO, promotionRepository.findById(eventDTO.getPromotionId()).orElse(null));
+        Event event = EventMapper.ToEntity(eventDTO, promotionRepository.findByName(eventDTO.getPromotionName()).orElse(null));
         return EventMapper.ToDTO(eventRepository.save(event));
     }
 
     public EventDTO updateEvent(long id, EventDTO eventDTO) {
-        Event event = EventMapper.ToEntity(eventDTO, promotionRepository.findById(eventDTO.getPromotionId()).orElse(null));
+        Event event = EventMapper.ToEntity(eventDTO, promotionRepository.findByName(eventDTO.getPromotionName()).orElse(null));
         event.setId(id);
         return EventMapper.ToDTO(eventRepository.save(event));
     }

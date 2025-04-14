@@ -28,5 +28,5 @@ public class Title {
     private Promotion promotion;
     @ManyToMany(mappedBy = "titles")
     @ToString.Exclude
-    private List<Wrestler> wrestler;
+    private List<Wrestler> wrestlers;
 }

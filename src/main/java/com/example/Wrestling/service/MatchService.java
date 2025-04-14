@@ -28,13 +28,22 @@ public class MatchService {
         return MatchMapper.ToDTO(Objects.requireNonNull(matchRepository.getMatchById(id).orElse(null)));
     }
 
+    public List<MatchDTO> getMatchesByWrestlerId(long wrestlerId){
+        return matchRepository.getAllMatchesByWrestlerId(wrestlerId).stream().map(MatchMapper::ToDTO).toList();
+    }
+    public List<MatchDTO> getMatchesByEventId(long eventId){
+        return matchRepository.getAllMatchesByEventId(eventId).stream().map(MatchMapper::ToDTO).toList();
+    }
+
     public MatchDTO createMatch(MatchDTO matchDTO) {
-        Match match = MatchMapper.ToEntity(matchDTO, eventRepository.findById(matchDTO.getEventId()).orElse(null), wrestlerRepository.findAllById(matchDTO.getWrestlersId()));
+        Match match = MatchMapper.ToEntity(matchDTO, eventRepository.findById(matchDTO.getEventId()).orElse(null),
+                wrestlerRepository.findAllById(matchDTO.getWrestlersId()));
         return MatchMapper.ToDTO(matchRepository.save(match));
     }
 
     public MatchDTO updateMatch(long id, MatchDTO matchDTO) {
-        Match match = MatchMapper.ToEntity(matchDTO, eventRepository.findById(matchDTO.getEventId()).orElse(null), wrestlerRepository.findAllById(matchDTO.getWrestlersId()));
+        Match match = MatchMapper.ToEntity(matchDTO, eventRepository.findById(matchDTO.getEventId()).orElse(null),
+                wrestlerRepository.findAllById(matchDTO.getWrestlersId()));
         match.setId(id);
         return MatchMapper.ToDTO(matchRepository.save(match));
     }

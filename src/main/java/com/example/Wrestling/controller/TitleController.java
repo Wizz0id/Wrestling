@@ -27,6 +27,10 @@ public class TitleController {
     public ResponseEntity<TitleDTO> getTitleById(@PathVariable int titleId) {
         return ResponseEntity.ok(titleService.getTitleById(titleId));
     }
+    @GetMapping("/titles")
+    public ResponseEntity<List<TitleDTO>> getTitlesByWrestler(@RequestParam(name = "wrestler") Long wrestlerId) {
+        return ResponseEntity.ok(titleService.getAllByWrestler(wrestlerId));
+    }
     @PostMapping
     public ResponseEntity<TitleDTO> createTitle(@RequestBody TitleDTO titleDTO) {
         return ResponseEntity.ok(titleService.saveTitle(titleDTO));

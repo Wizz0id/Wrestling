@@ -34,6 +34,14 @@ public class WrestlerService {
         return new WrestlerResponseDTO(promotionDTO, wrestlerDTO);
     }
 
+    public List<WrestlerDTO> getAllWrestlersByPromotion(long promotionId) {
+        return wrestlerRepository.getAllByPromotionId(promotionId).stream().map(WrestlerMapper::ToDTO).toList();
+    }
+
+    public List<WrestlerDTO> getAllWrestlersTitleID(long titleId) {
+        return wrestlerRepository.getAllByTitleId(titleId).stream().map(WrestlerMapper::ToDTO).toList();
+    }
+
     public WrestlerDTO createWrestler(WrestlerDTO wrestlerDTO) {
         Wrestler wrestler = WrestlerMapper.ToEntity(wrestlerDTO, promotionRepository.findById(wrestlerDTO.getPromotionId()).orElse(null));
         return WrestlerMapper.ToDTO(wrestlerRepository.save(wrestler));

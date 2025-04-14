@@ -13,5 +13,6 @@ public class EventDTO {
     public long id;
     public String name;
     public LocalDate date;
-    private long promotionId;
+    private String promotionName;
+    private String promotionPicture;
 }

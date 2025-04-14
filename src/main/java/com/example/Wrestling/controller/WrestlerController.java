@@ -24,6 +24,15 @@ public class WrestlerController {
     public ResponseEntity<WrestlerResponseDTO> getWrestlerById(@PathVariable Long wrestlerId) {
         return ResponseEntity.ok(wrestlerService.getWrestlerById(wrestlerId));
     }
+    @GetMapping(value = "/wrestlers", params = "promotion")
+    public ResponseEntity<List<WrestlerDTO>> getWrestlersByPromotionID(@RequestParam(name = "promotion") Long promotionId) {
+        return ResponseEntity.ok(wrestlerService.getAllWrestlersByPromotion(promotionId));
+    }
+    @GetMapping(value = "/wrestlers", params = "title")
+    public ResponseEntity<List<WrestlerDTO>> getWrestlersByTitleID(@RequestParam(name = "title") Long titleId) {
+        return ResponseEntity.ok(wrestlerService.getAllWrestlersTitleID(titleId));
+    }
+
     @PostMapping
     public ResponseEntity<WrestlerDTO> createWrestler(@RequestBody WrestlerDTO wrestlerDTO) {
         return ResponseEntity.ok(wrestlerService.createWrestler(wrestlerDTO));

@@ -16,6 +16,15 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
             "ilike '%' || :search || '%'",nativeQuery = true)
     List<Match> findBySearch(String search);
     Optional<Match> getMatchById(Long matchId);
+    @Query(value = "select id, name, type, url, professional_rating, winner_id, event_id " +
+            "from match join participants " +
+            "on match.id = participants.match_id " +
+            "where wrestler_id=:wrestlerId", nativeQuery = true)
+    List<Match> getAllMatchesByWrestlerId(Long wrestlerId);
+    @Query(value = "select * from match " +
+            "where event_id=:eventId", nativeQuery = true)
+    List<Match> getAllMatchesByEventId(Long eventId);
+
     @Modifying
     @Transactional
     @Query(value = "delete from participants where match_id=:matchId",nativeQuery = true)

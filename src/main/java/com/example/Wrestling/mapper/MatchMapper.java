@@ -29,7 +29,7 @@ public class MatchMapper {
         match.setType(matchDTO.getType());
         match.setUrl(matchDTO.getUrl());
         match.setProfessionalRating(matchDTO.getProfessionalRating());
-        match.setEvent(event); // TODO Оптимизировать бы эххх даааа
+        match.setEvent(event);
         match.setWinnerId(matchDTO.getWinnerId());
         match.setWrestlers(wrestlers);
         for (Wrestler wrestler : wrestlers) {

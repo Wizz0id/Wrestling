@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +18,5 @@ public class TitleDTO {
     private String picture;
     private String promotionName;
     private String promotionPicture;
+    private List<Long> wrestlersId;
 }
