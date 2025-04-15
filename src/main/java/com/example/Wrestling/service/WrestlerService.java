@@ -50,7 +50,8 @@ public class WrestlerService {
     public WrestlerDTO updateWrestler(long id, WrestlerDTO wrestlerDTO) {
         Wrestler wrestler = WrestlerMapper.ToEntity(wrestlerDTO, promotionRepository.findById(wrestlerDTO.getPromotionId()).orElse(null));
         wrestler.setId(id);
-        return WrestlerMapper.ToDTO(wrestlerRepository.save(wrestler));
+        if(wrestlerRepository.update(wrestler) != 0) return WrestlerMapper.ToDTO(wrestler);
+        return WrestlerMapper.ToDTO(new Wrestler());
     }
 
     public void deleteWrestler(long id) {

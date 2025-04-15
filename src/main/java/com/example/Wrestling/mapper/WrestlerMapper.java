@@ -31,7 +31,7 @@ public class WrestlerMapper {
         wrestler.setHeight(wrestlerDTO.getHeight());
         wrestler.setWeight(wrestlerDTO.getWeight());
         wrestler.setPicture(Base64.getDecoder().decode(wrestlerDTO.getPicture()));
-        wrestler.setGender(Gender.valueOf(wrestlerDTO.getGender()));
+        wrestler.setGender(wrestlerDTO.getGender().equals("Мужской") ? Gender.MALE: Gender.FEMALE);
         wrestler.setTrainer(wrestlerDTO.getTrainer());
         wrestler.setStartOfCareer(wrestlerDTO.getStartOfCareer());
         wrestler.setRetired(wrestlerDTO.isRetired());

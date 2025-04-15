@@ -2,7 +2,9 @@ package com.example.Wrestling.repository;
 
 import com.example.Wrestling.dto.WrestlerDTO;
 import com.example.Wrestling.entity.Wrestler;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -27,4 +29,18 @@ public interface WrestlerRepository extends JpaRepository<Wrestler, Long> {
             "wrestler.id = champions.wrestler_id " +
             "where champions.title_id=:titleId", nativeQuery = true)
     List<Wrestler> getAllByTitleId(long titleId);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE Wrestler SET " +
+            "fio = :#{#wrestler.fio}, " +
+            "height = :#{#wrestler.height}, " +
+            "weight = :#{#wrestler.weight}, " +
+            "gender = :#{#wrestler.gender}, " +
+            "picture = :#{#wrestler.picture}, " +
+            "trainer = :#{#wrestler.trainer}, " +
+            "startOfCareer = :#{#wrestler.startOfCareer}, " +
+            "retired = :#{#wrestler.retired}, " +
+            "promotion.id = :#{#wrestler.promotion.id} " +
+            "WHERE id = :#{#wrestler.id}")
+    Integer update(Wrestler wrestler);
 }
