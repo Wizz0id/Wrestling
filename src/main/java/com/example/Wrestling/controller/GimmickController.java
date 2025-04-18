@@ -14,9 +14,8 @@ public class GimmickController {
     @Autowired
     private GimmickService gimmickService;
     @GetMapping
-    public ResponseEntity<List<GimmickDTO>> getAllGimmicks(@RequestParam(required = false) String search,@PathVariable Long wrestlerId) {
-        if (search == null) return ResponseEntity.ok(gimmickService.getAllGimmicksForWrestler(wrestlerId));
-        return ResponseEntity.ok(gimmickService.getAllGimmicksBySearch(wrestlerId, search));
+    public ResponseEntity<List<GimmickDTO>> getAllGimmicks(@PathVariable Long wrestlerId) {
+        return ResponseEntity.ok(gimmickService.getAllGimmicksForWrestler(wrestlerId));
     }
     @GetMapping("/{gimmickId}")
     public ResponseEntity<GimmickDTO> getGimmick(@PathVariable Long wrestlerId, @PathVariable Long gimmickId) {

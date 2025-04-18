@@ -18,10 +18,8 @@ public class GimmickService {
     private final WrestlerRepository wrestlerRepository;
 
     public List<GimmickDTO> getAllGimmicksForWrestler(Long wrestlerId) {
-        return gimmickRepository.findByWrestlerId(wrestlerId).stream().map(GimmickMapper::ToDTO).toList();
-    }
-    public List<GimmickDTO> getAllGimmicksBySearch(Long wrestlerId, String search) {
-        return gimmickRepository.findByName(wrestlerId, search).stream().map(GimmickMapper::ToDTO).toList();
+        List<Gimmick> gimmicks = gimmickRepository.findByWrestlerId(wrestlerId);
+        return gimmicks.stream().map(GimmickMapper::ToDTO).toList();
     }
 
     public GimmickDTO getGimmick(Long wrestlerId, Long gimmickId) {

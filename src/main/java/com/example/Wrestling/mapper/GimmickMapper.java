@@ -16,7 +16,6 @@ public class GimmickMapper {
         GimmickDTO gimmickDTO = new GimmickDTO();
         gimmickDTO.setId(gimmick.getId());
         gimmickDTO.setName(gimmick.getName());
-        gimmickDTO.setWrestlerId(gimmick.getWrestler().getId());
         return gimmickDTO;
     }
 }

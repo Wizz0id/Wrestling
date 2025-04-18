@@ -12,8 +12,8 @@ public class Gimmick {
     @Column(name = "id", nullable = false)
     private long id;
     @Column
-    private String name; // TODO хранить промежуток?
-    @ManyToOne
+    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wrestler_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Wrestler wrestler;
 }

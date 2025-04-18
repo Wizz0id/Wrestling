@@ -23,7 +23,7 @@ public class WrestlerDTO {
     private long promotionId;
     private long countOfMatches;
 
-    WrestlerDTO(long id, String fio, int weight, int height, byte[] picture,
+    WrestlerDTO(long id, String fio, int height, int weight, byte[] picture,
                 Gender gender, String trainer, LocalDate startOfCareer,
                 boolean retired, long promotionId, long countOfMatches) {
         this.id = id;
