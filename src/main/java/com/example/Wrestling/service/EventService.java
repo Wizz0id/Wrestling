@@ -24,7 +24,7 @@ public class EventService {
         return eventRepository.getBySearch(search);
     }
     public EventDTO getEventById(long id) {
-        return EventMapper.ToDTO(Objects.requireNonNull(eventRepository.findById(id).orElse(null)));    // TODO А оно мне надо?
+        return EventMapper.ToDTO(Objects.requireNonNull(eventRepository.findById(id).orElse(null)));
     }
 
     public EventDTO createEvent(EventDTO eventDTO) {

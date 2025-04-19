@@ -18,7 +18,7 @@ public class PromotionService {
         return promotionRepository.findAll().stream().map(PromotionMapper::ToDTO).toList();
     }
     public PromotionDTO getPromotionById(long id) {
-        return PromotionMapper.ToDTO(Objects.requireNonNull(promotionRepository.findById(id).orElse(null))); // TODO А оно мне надо?
+        return PromotionMapper.ToDTO(Objects.requireNonNull(promotionRepository.findById(id).orElse(null)));
     }
     public List<PromotionDTO> getPromotionByName(String name) {
         return promotionRepository.findByNameContaining(name).stream().map(PromotionMapper::ToDTO).toList();

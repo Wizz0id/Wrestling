@@ -11,7 +11,7 @@ public class MatchRenewMapper {
         matchRenew.setId(renewDTO.getId());
         matchRenew.setRating(renewDTO.getRating());
         matchRenew.setRenew(renewDTO.getRenew());
-        matchRenew.setMatch(match); // TODO попытаться оптимизировать
+        matchRenew.setMatch(match);
         return matchRenew;
     }
 

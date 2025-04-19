@@ -30,7 +30,7 @@ public class TitleService {
         return titleRepository.getAllByWrestler(wrestlerId).stream().map(TitleMapper::ToDTO).toList();
     }
     public TitleDTO getTitleById(long id) {
-        return TitleMapper.ToDTO(Objects.requireNonNull(titleRepository.findById(id).orElse(null))); // TODO А оно мне надо?
+        return TitleMapper.ToDTO(Objects.requireNonNull(titleRepository.findById(id).orElse(null)));
     }
     public TitleDTO saveTitle(TitleDTO titleDTO) {
         Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findByName(titleDTO.getPromotionName()).orElse(null),

@@ -10,7 +10,7 @@ public class EventRenewMapper {
         eventRenew.setId(renewDTO.getId());
         eventRenew.setRating(renewDTO.getRating());
         eventRenew.setRenew(renewDTO.getRenew());
-        eventRenew.setEvent(event); // TODO попытаться оптимизировать
+        eventRenew.setEvent(event);
         return eventRenew;
     }
 

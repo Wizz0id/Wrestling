@@ -21,7 +21,7 @@ public class EventMapper {
         event.setId(dto.getId());
         event.setName(dto.getName());
         event.setDate(dto.getDate());
-        event.setPromotion(promotion); // TODO Оптимизировать бы эххх даааа
+        event.setPromotion(promotion);
         return event;
     }
 }

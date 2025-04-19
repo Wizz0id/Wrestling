@@ -9,7 +9,7 @@ public class GimmickMapper {
         Gimmick gimmick = new Gimmick();
         gimmick.setId(gimmickDTO.getId());
         gimmick.setName(gimmickDTO.getName());
-        gimmick.setWrestler(wrestler); // TODO попытаться оптимизировать
+        gimmick.setWrestler(wrestler);
         return gimmick;
     }
     public static GimmickDTO ToDTO(Gimmick gimmick) {
