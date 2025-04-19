@@ -20,11 +20,11 @@ public class TitleService {
     private final WrestlerRepository wrestlerRepository;
 
     public List<TitleDTO> getAllTitles() {
-        return titleRepository.findAll().stream().map(TitleMapper::ToDTO).toList();
+        return titleRepository.getAll();
     }
 
     public List<TitleDTO> getAllBySearch(String search) {
-        return titleRepository.findBySearch(search).stream().map(TitleMapper::ToDTO).toList();
+        return titleRepository.findBySearch(search);
     }
     public List<TitleDTO> getAllByWrestler(long wrestlerId) {
         return titleRepository.getAllByWrestler(wrestlerId).stream().map(TitleMapper::ToDTO).toList();

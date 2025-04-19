@@ -1,5 +1,6 @@
 package com.example.Wrestling.repository;
 
+import com.example.Wrestling.dto.MatchDTO;
 import com.example.Wrestling.entity.Match;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,15 +13,29 @@ import java.util.Optional;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
-    @Query(value = "select * from match where name " +
-            "ilike '%' || :search || '%'",nativeQuery = true)
-    List<Match> findBySearch(String search);
+    @Query(value = "select match.id, name, type, professional_rating, avg(match_renew.rating) " +
+            "from match " +
+            "left join match_renew " +
+            "on match.id = match_renew.match_id " +
+            "where name ilike '%' || :search || '%' " +
+            "group by match.id ", nativeQuery = true)
+    List<MatchDTO> findBySearch(String search);
+
+    @Query(value = "select match.id, name, type, professional_rating, avg(match_renew.rating) " +
+            "from match " +
+            "left join match_renew " +
+            "on match.id = match_renew.match_id " +
+            "group by match.id", nativeQuery = true)
+    List<MatchDTO> getAll();
+
     Optional<Match> getMatchById(Long matchId);
+
     @Query(value = "select id, name, type, url, professional_rating, winner_id, event_id " +
             "from match join participants " +
             "on match.id = participants.match_id " +
             "where wrestler_id=:wrestlerId", nativeQuery = true)
     List<Match> getAllMatchesByWrestlerId(Long wrestlerId);
+
     @Query(value = "select * from match " +
             "where event_id=:eventId", nativeQuery = true)
     List<Match> getAllMatchesByEventId(Long eventId);
@@ -29,6 +44,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     @Transactional
     @Query(value = "delete from participants where match_id=:matchId",nativeQuery = true)
     void deleteParticipantsById(Long matchId);
+
     @Modifying
     @Transactional
     @Query(value = "delete from match where id=:matchId",nativeQuery = true)

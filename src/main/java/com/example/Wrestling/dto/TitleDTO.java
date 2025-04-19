@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 
 @Data
@@ -19,4 +20,10 @@ public class TitleDTO {
     private String promotionName;
     private String promotionPicture;
     private List<Long> wrestlersId;
+
+    TitleDTO(long id, String name, byte[] promotionPicture){
+        this.id = id;
+        this.name = name;
+        this.promotionPicture = Base64.getEncoder().encodeToString(promotionPicture);
+    }
 }

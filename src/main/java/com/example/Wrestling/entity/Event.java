@@ -19,7 +19,7 @@ public class Event {
     private String name;
     @Column
     private LocalDate date;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promo_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Promotion promotion;
 

@@ -19,10 +19,10 @@ public class MatchService {
 
 
     public List<MatchDTO> getAll(){
-        return matchRepository.findAll().stream().map(MatchMapper::ToDTO).toList();
+        return matchRepository.getAll();
     }
     public List<MatchDTO> getBySearch(String search){
-        return matchRepository.findBySearch(search).stream().map(MatchMapper::ToDTO).toList();
+        return matchRepository.findBySearch(search);
     }
     public MatchDTO getMatchById(long id){
         return MatchMapper.ToDTO(Objects.requireNonNull(matchRepository.getMatchById(id).orElse(null)));

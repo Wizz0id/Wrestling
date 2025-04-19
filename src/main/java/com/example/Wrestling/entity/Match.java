@@ -26,7 +26,7 @@ public class Match {
     private double professionalRating;
     @Column
     private long winnerId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Event event;
 

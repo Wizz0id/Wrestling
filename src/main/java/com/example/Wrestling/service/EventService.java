@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor()
 @Service
@@ -19,10 +18,10 @@ public class EventService {
     private final PromotionRepository promotionRepository;
 
     public List<EventDTO> getAllEvents() {
-        return eventRepository.findAll().stream().map(EventMapper::ToDTO).collect(Collectors.toList());
+        return eventRepository.getAll();
     }
     public List<EventDTO> getAllBySearch(String search) {
-        return eventRepository.getBySearch(search).stream().map(EventMapper::ToDTO).collect(Collectors.toList());
+        return eventRepository.getBySearch(search);
     }
     public EventDTO getEventById(long id) {
         return EventMapper.ToDTO(Objects.requireNonNull(eventRepository.findById(id).orElse(null)));    // TODO А оно мне надо?
