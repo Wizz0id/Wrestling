@@ -1,5 +1,6 @@
 package com.example.Wrestling.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -8,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,32 +23,25 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration {
-
-    private final JwtFilter jwtFilter;
-
-    public WebSecurityConfiguration(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
+    @Autowired
+    private JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers(HttpMethod.POST, "/auth/api/v1/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/api/v1/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/events/api/v1/*/reviews").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/matches/api/v1/*/reviews").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/events/api/v1/*/renews", "/matches/api/v1/*/renews").authenticated()
                         .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build(); // TODO JwtTokens надо бы наверное
+                .build();
     }
 
     @Bean

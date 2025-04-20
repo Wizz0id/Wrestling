@@ -25,7 +25,7 @@ public class MatchDTO {
         this.id = id;
         this.name = name;
         this.type = MatchType.valueOf(type);
-        this.professionalRating = professionalRating;
-        this.peoplesRating = peoplesRating;
+        this.professionalRating = Math.round(professionalRating * 100) / 100.0;
+        this.peoplesRating = Math.round(peoplesRating * 100) / 100.0;
     }
 }
