@@ -28,6 +28,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody UserDTO userDto){
         User user = userDetailsService.loadUserByUsername(userDto.getUsername());
-        return ResponseEntity.ok(new TokenResponse(user.getUsername(), jwtUtil.generateToken(user.getUsername())));
+        return ResponseEntity.ok(new TokenResponse(user.getUsername(), jwtUtil.generateToken(user.getUsername()), user.getRole().toString()));
     }
 }
