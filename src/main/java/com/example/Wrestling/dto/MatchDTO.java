@@ -21,10 +21,10 @@ public class MatchDTO {
     private long winnerId;
     private List<Long> wrestlersId;
 
-    MatchDTO(long id, String name, String type, double professionalRating, double peoplesRating, long winnerId) {
+    MatchDTO(long id, String name, MatchType type, double professionalRating, double peoplesRating, long winnerId) {
         this.id = id;
         this.name = name;
-        this.type = MatchType.valueOf(type);
+        this.type = type;
         this.professionalRating = Math.round(professionalRating * 100) / 100.0;
         this.peoplesRating = Math.round(peoplesRating * 100) / 100.0;
         this.winnerId = winnerId;

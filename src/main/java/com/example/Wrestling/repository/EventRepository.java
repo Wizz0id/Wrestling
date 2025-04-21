@@ -9,13 +9,13 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
-    @Query(value = "select event.id, event.name, date, promotion.name, picture " +
-            "from event " +
-            "left join promotion on event.promo_id = promotion.id " +
-            "where event.name ilike '%' || :search || '%' or promotion.name ilike '%' || :search || '%'", nativeQuery = true)
+    @Query(value = "select new com.example.Wrestling.dto.EventDTO(event.id, event.name, event.date, promotion.name, promotion.picture) " +
+            "from Event event " +
+            "left join Promotion promotion on event.promotion.id = promotion.id " +
+            "where event.name like %:search% or promotion.name like %:search%")
     List<EventDTO> getBySearch(String search);
-    @Query(value = "select event.id, event.name, date, promotion.name, picture" +
-            " from event " +
-            "left join promotion on event.promo_id = promotion.id", nativeQuery = true)
+    @Query(value = "select new com.example.Wrestling.dto.EventDTO(event.id, event.name, event.date, promotion.name, promotion.picture) " +
+            "from Event event " +
+            "left join Promotion promotion on event.promotion.id = promotion.id")
     List<EventDTO> getAll();
 }

@@ -10,16 +10,16 @@ import java.util.List;
 
 @Repository
 public interface TitleRepository extends JpaRepository<Title, Long> {
-    @Query(value = "select title.id, title.name, promotion.picture " +
-            "from title " +
-            "left join promotion on title.promo_id = promotion.id " +
+    @Query(value = "select new com.example.Wrestling.dto.TitleDTO(title.id, title.name, promotion.picture) " +
+            "from Title title " +
+            "left join Promotion promotion on title.promotion.id = promotion.id " +
             "where title.name ilike '%' || :search || '%' " +
-            "or promotion.name ilike '%' || :search || '%' ",nativeQuery = true)
+            "or promotion.name ilike '%' || :search || '%' ")
     List<TitleDTO> findBySearch(String search);
 
-    @Query(value = "select title.id, title.name, promotion.picture " +
-            "from title " +
-            "left join promotion on title.promo_id = promotion.id ",nativeQuery = true)
+    @Query(value = "select new com.example.Wrestling.dto.TitleDTO(title.id, title.name, promotion.picture) " +
+            "from Title title " +
+            "left join Promotion promotion on title.promotion.id = promotion.id ")
     List<TitleDTO> getAll();
 
     @Query(value = "select id, name, start_date, end_date, picture, promo_id " +

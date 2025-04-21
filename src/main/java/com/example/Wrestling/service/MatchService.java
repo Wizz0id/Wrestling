@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor()
 @Service
@@ -24,8 +23,8 @@ public class MatchService {
     public List<MatchDTO> getBySearch(String search){
         return matchRepository.findBySearch(search);
     }
-    public MatchDTO getMatchById(long id){
-        return MatchMapper.ToDTO(Objects.requireNonNull(matchRepository.getMatchById(id).orElse(null)));
+    public MatchWithRatingDTO getMatchById(long id){
+        return matchRepository.getMatchById(id).orElse(null);
     }
 
     public List<MatchDTO> getMatchesByWrestlerId(long wrestlerId){

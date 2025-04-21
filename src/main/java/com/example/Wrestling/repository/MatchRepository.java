@@ -1,6 +1,7 @@
 package com.example.Wrestling.repository;
 
 import com.example.Wrestling.dto.MatchDTO;
+import com.example.Wrestling.dto.MatchWithRatingDTO;
 import com.example.Wrestling.entity.Match;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,22 +14,23 @@ import java.util.Optional;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
-    @Query(value = "select match.id, name, type, professional_rating, avg(match_renew.rating), winner_id " +
-            "from match " +
-            "left join match_renew " +
-            "on match.id = match_renew.match_id " +
-            "where name ilike '%' || :search || '%' " +
-            "group by match.id ", nativeQuery = true)
+    @Query(value = "select new com.example.Wrestling.dto.MatchDTO(match.id, match.name, match.type, match.professionalRating, coalesce(avg(matchRenew.rating), 0), match.winnerId) " +
+            "from Match match " +
+            "left join MatchRenew matchRenew on match.id = matchRenew.match.id " +
+            "where match.name like %:search% " +
+            "group by match.id")
     List<MatchDTO> findBySearch(String search);
 
-    @Query(value = "select match.id, name, type, professional_rating, coalesce(avg(match_renew.rating), 0), winner_id " +
-            "from match " +
-            "left join match_renew " +
-            "on match.id = match_renew.match_id " +
-            "group by match.id", nativeQuery = true)
+    @Query(value = "select new com.example.Wrestling.dto.MatchDTO(match.id, match.name, match.type, match.professionalRating, coalesce(avg(matchRenew.rating), 0) , match.winnerId) " +
+            "from Match match " +
+            "left join MatchRenew matchRenew on match.id = matchRenew.match.id " +
+            "group by match.id")
     List<MatchDTO> getAll();
-
-    Optional<Match> getMatchById(Long matchId);
+    @Query(value = "select new com.example.Wrestling.dto.MatchWithRatingDTO(match, coalesce(avg(matchRenew.rating), 0))" +
+            "from Match match " +
+            "left join MatchRenew matchRenew on match.id = matchRenew.match.id " +
+            "group by match.id")
+    Optional<MatchWithRatingDTO> getMatchById(Long matchId);
 
     @Query(value = "select id, name, type, url, professional_rating, winner_id, event_id " +
             "from match join participants " +

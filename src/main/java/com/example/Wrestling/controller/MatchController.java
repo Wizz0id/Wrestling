@@ -1,6 +1,7 @@
 package com.example.Wrestling.controller;
 
 import com.example.Wrestling.dto.MatchDTO;
+import com.example.Wrestling.dto.MatchWithRatingDTO;
 import com.example.Wrestling.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class MatchController {
         return ResponseEntity.ok(matchService.getBySearch(search));
     }
     @GetMapping("/{matchId}")
-    public ResponseEntity<MatchDTO> getMatchById(@PathVariable int matchId) {
-        MatchDTO matchDTO = matchService.getMatchById(matchId);
+    public ResponseEntity<MatchWithRatingDTO> getMatchById(@PathVariable int matchId) {
+        MatchWithRatingDTO matchDTO = matchService.getMatchById(matchId);
         return ResponseEntity.ok(matchDTO);
     }
     @GetMapping(value = "/matches", params = "wrestler")
