@@ -38,6 +38,10 @@ public class WrestlerService {
         return wrestlerRepository.getAllByPromotionId(promotionId).stream().map(WrestlerMapper::ToDTO).toList();
     }
 
+    public List<WrestlerDTO> getAllWrestlersByMatch(long matchId){
+        return wrestlerRepository.getAllByMatchId(matchId).stream().map(WrestlerMapper::ToDTO).toList();
+    }
+
     public List<WrestlerDTO> getAllWrestlersTitleID(long titleId) {
         return wrestlerRepository.getAllByTitleId(titleId).stream().map(WrestlerMapper::ToDTO).toList();
     }

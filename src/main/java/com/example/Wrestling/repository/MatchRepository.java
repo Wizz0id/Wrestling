@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
-    @Query(value = "select match.id, name, type, professional_rating, avg(match_renew.rating) " +
+    @Query(value = "select match.id, name, type, professional_rating, avg(match_renew.rating), winner_id " +
             "from match " +
             "left join match_renew " +
             "on match.id = match_renew.match_id " +
@@ -21,7 +21,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
             "group by match.id ", nativeQuery = true)
     List<MatchDTO> findBySearch(String search);
 
-    @Query(value = "select match.id, name, type, professional_rating, avg(match_renew.rating) " +
+    @Query(value = "select match.id, name, type, professional_rating, coalesce(avg(match_renew.rating), 0), winner_id " +
             "from match " +
             "left join match_renew " +
             "on match.id = match_renew.match_id " +

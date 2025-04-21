@@ -8,6 +8,7 @@ public class EventRenewMapper {
     public static EventRenew ToEntity(EventRenewDTO renewDTO, Event event){
         EventRenew eventRenew = new EventRenew();
         eventRenew.setId(renewDTO.getId());
+        eventRenew.setUsername(renewDTO.getUsername());
         eventRenew.setRating(renewDTO.getRating());
         eventRenew.setRenew(renewDTO.getRenew());
         eventRenew.setEvent(event);
@@ -17,6 +18,7 @@ public class EventRenewMapper {
     public static EventRenewDTO ToDTO(EventRenew renew){
         EventRenewDTO eventRenewDTO = new EventRenewDTO();
         eventRenewDTO.setId(renew.getId());
+        eventRenewDTO.setUsername(renew.getUsername());
         eventRenewDTO.setRating(renew.getRating());
         eventRenewDTO.setRenew(renew.getRenew());
         eventRenewDTO.setEventId(renew.getEvent().getId());

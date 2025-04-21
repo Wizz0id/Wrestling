@@ -12,6 +12,8 @@ public class MatchRenew {
     @Column(name = "id", nullable = false)
     private long id;
     @Column
+    private String username;
+    @Column
     private double rating;
     @Column
     private String renew;

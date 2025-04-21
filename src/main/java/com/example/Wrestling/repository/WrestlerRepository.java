@@ -25,6 +25,11 @@ public interface WrestlerRepository extends JpaRepository<Wrestler, Long> {
     @Query(value = "select * from wrestler where promo_id=:promotionID", nativeQuery = true)
     List<Wrestler> getAllByPromotionId(long promotionID);
     @Query(value = "select wrestler.id, fio, gender, height, picture, retired, start_of_career, trainer, weight, promo_id " +
+            "from wrestler left join participants " +
+            "on wrestler.id = participants.wrestler_id " +
+            "where match_id=:matchId", nativeQuery = true)
+    List<Wrestler> getAllByMatchId(long matchId);
+    @Query(value = "select wrestler.id, fio, gender, height, picture, retired, start_of_career, trainer, weight, promo_id " +
             "from wrestler left join champions on " +
             "wrestler.id = champions.wrestler_id " +
             "where champions.title_id=:titleId", nativeQuery = true)
