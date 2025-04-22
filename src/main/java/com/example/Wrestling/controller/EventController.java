@@ -23,8 +23,8 @@ public class EventController {
         return ResponseEntity.ok(eventService.getEventById(eventId));
     }
     @PostMapping
-    public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTO) {
-        return ResponseEntity.ok(eventService.createEvent(eventDTO));
+    public ResponseEntity<EventDTO> createEvent(@RequestParam(name = "promo") Long promoId,@RequestBody EventDTO eventDTO) {
+        return ResponseEntity.ok(eventService.createEvent(promoId, eventDTO));
     }
     @PutMapping("/{eventId}")
     public ResponseEntity<EventDTO> updateEvent(@PathVariable long eventId, @RequestBody EventDTO eventDTO) {

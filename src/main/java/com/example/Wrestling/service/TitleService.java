@@ -32,8 +32,8 @@ public class TitleService {
     public TitleDTO getTitleById(long id) {
         return TitleMapper.ToDTO(Objects.requireNonNull(titleRepository.findById(id).orElse(null)));
     }
-    public TitleDTO saveTitle(TitleDTO titleDTO) {
-        Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findByName(titleDTO.getPromotionName()).orElse(null),
+    public TitleDTO saveTitle(Long promoId, TitleDTO titleDTO) {
+        Title title = TitleMapper.ToEntity(titleDTO, promotionRepository.findById(promoId).orElse(null),
                 wrestlerRepository.findAllById(titleDTO.getWrestlersId()));
         return TitleMapper.ToDTO(titleRepository.save(title));
     }

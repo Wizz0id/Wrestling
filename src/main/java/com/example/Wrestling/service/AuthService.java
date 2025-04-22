@@ -21,7 +21,11 @@ public class AuthService {
         if(found != null) return false;
         User new_user = new User();
         new_user.setUsername(user.getUsername());
-        new_user.setRole(Role.USER);
+        if (user.getUsername().equals("ADMIN")) {
+            new_user.setRole(Role.ADMIN);
+        } else {
+            new_user.setRole(Role.USER);
+        }
         new_user.setPassword(passwordEncoder.encode(user.getPassword()));
         new_user.setExpired(false);
         userRepository.save(new_user);

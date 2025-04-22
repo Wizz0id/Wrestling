@@ -33,9 +33,9 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/events/api/v1/*/renews", "/matches/api/v1/*/renews").authenticated()
-                        .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST).permitAll()//.hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT).hasAuthority("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)

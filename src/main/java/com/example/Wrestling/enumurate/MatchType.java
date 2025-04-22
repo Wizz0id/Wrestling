@@ -50,4 +50,13 @@ public enum MatchType {
         this.description = description;
     }
 
+    public static MatchType fromName(String name) {
+        for (MatchType type : MatchType.values()) {
+            if (type.name.equals(name)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant with name " + name);
+    }
+
 }

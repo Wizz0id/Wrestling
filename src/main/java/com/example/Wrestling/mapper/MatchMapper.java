@@ -4,6 +4,7 @@ import com.example.Wrestling.dto.MatchDTO;
 import com.example.Wrestling.entity.Event;
 import com.example.Wrestling.entity.Match;
 import com.example.Wrestling.entity.Wrestler;
+import com.example.Wrestling.enumurate.MatchType;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class MatchMapper {
         MatchDTO matchDTO = new MatchDTO();
         matchDTO.setId(match.getId());
         matchDTO.setName(match.getName());
-        matchDTO.setType(match.getType());
+        matchDTO.setType(match.getType().getName());
         matchDTO.setUrl(match.getUrl());
         matchDTO.setProfessionalRating(match.getProfessionalRating());
         matchDTO.setEventId(match.getEvent().getId());
@@ -26,7 +27,7 @@ public class MatchMapper {
         Match match = new Match();
         match.setId(matchDTO.getId());
         match.setName(matchDTO.getName());
-        match.setType(matchDTO.getType());
+        match.setType(MatchType.fromName(matchDTO.getType()));
         match.setUrl(matchDTO.getUrl());
         match.setProfessionalRating(matchDTO.getProfessionalRating());
         match.setEvent(event);

@@ -32,8 +32,8 @@ public class TitleController {
         return ResponseEntity.ok(titleService.getAllByWrestler(wrestlerId));
     }
     @PostMapping
-    public ResponseEntity<TitleDTO> createTitle(@RequestBody TitleDTO titleDTO) {
-        return ResponseEntity.ok(titleService.saveTitle(titleDTO));
+    public ResponseEntity<TitleDTO> createTitle(@RequestParam(name = "promo") Long promoId, @RequestBody TitleDTO titleDTO) {
+        return ResponseEntity.ok(titleService.saveTitle(promoId, titleDTO));
     }
     @PutMapping("/{titleID}")
     public ResponseEntity<TitleDTO> updateTitle(@PathVariable int titleID, @RequestBody TitleDTO titleDTO) {

@@ -29,6 +29,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     @Query(value = "select new com.example.Wrestling.dto.MatchWithRatingDTO(match, coalesce(avg(matchRenew.rating), 0))" +
             "from Match match " +
             "left join MatchRenew matchRenew on match.id = matchRenew.match.id " +
+            "where match.id=:matchId " +
             "group by match.id")
     Optional<MatchWithRatingDTO> getMatchById(Long matchId);
 

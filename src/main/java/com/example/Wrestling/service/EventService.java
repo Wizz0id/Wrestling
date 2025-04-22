@@ -27,8 +27,8 @@ public class EventService {
         return EventMapper.ToDTO(Objects.requireNonNull(eventRepository.findById(id).orElse(null)));
     }
 
-    public EventDTO createEvent(EventDTO eventDTO) {
-        Event event = EventMapper.ToEntity(eventDTO, promotionRepository.findByName(eventDTO.getPromotionName()).orElse(null));
+    public EventDTO createEvent(Long promotionId, EventDTO eventDTO) {
+        Event event = EventMapper.ToEntity(eventDTO, promotionRepository.findById(promotionId).orElse(null));
         return EventMapper.ToDTO(eventRepository.save(event));
     }
 
